@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { IoIosArrowDown, IoIosCreate } from 'react-icons/io'
 import { HiPencilAlt } from 'react-icons/hi'
+import FriendList from './FreindList'
+import { AlwaysScrollSection } from '../../components/AlwaysScrollSection'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -10,10 +12,11 @@ const Wrapper = styled.div`
 
 const NicknameBox = styled.div`
   width: 100%;
-  height: 60px;
+  min-height: 60px;
   border-bottom: 1px solid #dbdbdb;
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 `
 const FixedPosition = styled.div`
   position: relative;
@@ -36,8 +39,104 @@ function FreindBox() {
           <HiPencilAlt style={{ fontSize: '20px', marginLeft: '90px' }} />
         </FixedPosition>
       </NicknameBox>
+      <AlwaysScrollSection>
+        {FrindData.map(friend => (
+          <FriendList
+            nickname={friend.nickname}
+            contents={friend.contents}
+            time={friend.time}
+          />
+        ))}
+      </AlwaysScrollSection>
     </Wrapper>
   )
 }
 
 export default FreindBox
+
+const FrindData = [
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+  {
+    key: 1,
+    nickname: 'as_dkjf',
+    contents: '이펍한달남아서 오열중',
+    time: '16시간',
+  },
+]
