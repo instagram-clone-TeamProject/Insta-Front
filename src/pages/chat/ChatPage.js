@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import Header from '../../components/header/Header'
+import ChatBox from './ChatBox'
+import FreindBox from './FriendBox'
 
 const Background = styled.div`
   position: absolute;
@@ -14,11 +16,30 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
 `
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const ChatWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 900px;
+  height: 700px;
+  background-color: white;
+  margin-top: 80px;
+`
 
 function ChatPage() {
   return (
     <Background>
       <Header bool={false} />
+      <Wrapper>
+        <ChatWrapper>
+          <FreindBox />
+          <ChatBox />
+        </ChatWrapper>
+      </Wrapper>
     </Background>
   )
 }
