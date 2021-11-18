@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const StoryBox=styled.div`
+const Wrapper=styled.div`
+    display:flex;
+    flex-direction: row;
     width:612px;
     height:84px;
     background-color:white;
@@ -11,10 +13,10 @@ const StoryBox=styled.div`
     border:1px solid #DBDBDB;
 `;
 
-function Story(){
+function StoryBox(){
     return (
-        <StoryBox />
+        <Wrapper />
     )
 }
 
-export default Story;
+export default StoryBox;

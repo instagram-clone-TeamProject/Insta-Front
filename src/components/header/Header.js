@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import instagram_logo from '../../assets/instagram_logo.png'
+import profile_image from '../../assets/profile_image.jpeg'
 
 import { BiSearch } from 'react-icons/bi'
-import { BsHouseDoorFill, BsHouseDoor } from 'react-icons/bs'
+import { BsHouseDoorFill, BsHouseDoor,BsPlusSquare } from 'react-icons/bs'
 import { IoPaperPlaneOutline, IoPaperPlane } from 'react-icons/io5'
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { AiFillCompass, AiOutlineCompass } from 'react-icons/ai'
@@ -64,9 +65,17 @@ const InputConsol = styled.input`
 const IconBox = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 136px;
+  width: 242px;
   height: 22px;
+  padding-left:24px;
 `
+
+const Profile=styled.div`
+  width:24px;
+  height:24px;
+  border-radius: 50%;
+  overflow:hidden;
+`;
 
 function Header({ bool }) {
   const history = useNavigate()
@@ -93,17 +102,25 @@ function Header({ bool }) {
           </InputBox>
           {iconState ? (
             <IconBox>
-              <BsHouseDoorFill />
-              <IoPaperPlaneOutline onClick={onChatClick} />
-              <AiOutlineCompass />
-              <FaRegHeart />
+              <BsHouseDoorFill size="23px"/>
+              <IoPaperPlaneOutline onClick={onChatClick} size="23px" />
+              <BsPlusSquare size="22px" />
+              <AiOutlineCompass size="24px" />
+              <FaRegHeart size="22px" />
+              <Profile>
+                <img src={profile_image} width="100%" height="100%" style={{objectFit:"cover"}}/>
+              </Profile>
             </IconBox>
           ) : (
             <IconBox>
-              <BsHouseDoor onClick={onHomeClick} />
-              <IoPaperPlane />
-              <AiOutlineCompass />
-              <FaRegHeart />
+              <BsHouseDoor onClick={onHomeClick} size="23px" />
+              <IoPaperPlane size="23px" />
+              <BsPlusSquare size="22px" />
+              <AiOutlineCompass size="24px" />
+              <FaRegHeart size="22px" />
+              <Profile>
+                <img src={profile_image} width="100%" height="100%" style={{objectFit:"cover"}}/>
+              </Profile>
             </IconBox>
           )}
         </Wrapper2>

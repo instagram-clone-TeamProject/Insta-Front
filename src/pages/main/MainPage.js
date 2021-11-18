@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import Header from '../../components/header/Header'
-import Story from './Story'
-import Feed from './Feed'
+import StoryBox from './StoryBox'
+import FeedBox from './FeedBox'
+import InfoBox from './InfoBox'
 
 const Background = styled.div`
   position: absolute;
@@ -18,20 +19,22 @@ const Background = styled.div`
 `
 
 const Wrapper1 = styled.div`
-  position: flex;
+  display: flex;
   flex-direction: row;
   width: 935px;
   padding-top: 54px;
+  margin-top: 30px;
 `
 
 const Wrapper2 = styled.div`
-  position: flex;
+  display: flex;
   flex-direction: column;
-  max-width: 614px;
-  width: 100%;
+  width: 614px;
+  height: 100%;
   margin-right: 28px;
-  padding-top: 30px;
 `
+
+
 
 function MainPage() {
   return (
@@ -40,9 +43,10 @@ function MainPage() {
         <Header bool={true} />
         <Wrapper1>
           <Wrapper2>
-            <Story />
-            <Feed />
+            <StoryBox />
+            <FeedBox />
           </Wrapper2>
+          <InfoBox />
         </Wrapper1>
       </Background>
     </>

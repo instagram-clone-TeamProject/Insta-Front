@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const FeedBox=styled.div`
+const Wrapper=styled.div`
     width:614px;
     height:300px;
     background-color:white;
     border:1px solid #DBDBDB;
 `;
 
-function Feed(){
+function FeedBox(){
     return (
-        <FeedBox />
+        <Wrapper />
     )
 }
 
-export default Feed;
+export default FeedBox;
