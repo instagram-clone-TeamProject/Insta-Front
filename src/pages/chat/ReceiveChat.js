@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import Profile from '../../assets/profile.jpg'
+
 const Wrapper = styled.div`
   width: 100%auto;
-  height: 100%auto;
-  min-height: 40px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
