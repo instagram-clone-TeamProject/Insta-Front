@@ -7,26 +7,28 @@ const Wrapper=styled.div`
     flex-direction: column;
     align-items: center;
     width:80px;
+    margin-left: 10px;
+    margin-right:10px;
 `;
 
 const ProfileImage = styled.image`
   margin-top: 5px;
   margin-bottom: 5px;
   border-radius: 50%;
-  height: 50px;
-  width: 50px;
-  margin-right: 10px;
+  height: 60px;
+  width: 60px;
   background: url(${props => props.src});
   background-size: 50px;
 `
 
 const BlackText=styled.text`
     color: black;
-    font-size: 14px;
+    font-size: 13px;
 `;
 
 
-function StoryList({id}){
+
+function StoryList({id,read,special}){
     return(
         <Wrapper>
             <ProfileImage src={profile_image} />
