@@ -7,6 +7,7 @@ const Wrapper=styled.div`
     flex-direction: column;
     align-items: center;
     width:80px;
+    height:100px;
     margin-left: 10px;
     margin-right:10px;
 `;
@@ -15,10 +16,12 @@ const ProfileImage = styled.image`
   margin-top: 5px;
   margin-bottom: 5px;
   border-radius: 50%;
-  height: 60px;
-  width: 60px;
+  border:4px solid #CE4B9A;
+  height: 55px;
+  width: 55px;
   background: url(${props => props.src});
-  background-size: 50px;
+  background-size: 55px;
+
 `
 
 const BlackText=styled.text`

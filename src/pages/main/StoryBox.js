@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import StoryList from "./StoryList";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import {AiFillLeftCircle,AiFillRightCircle} from 'react-icons/ai';
 
 const Wrapper=styled.div`
@@ -33,13 +35,14 @@ const stories=[
     {id:12,read:1,special:1},
 ]
 
-function StoryBox(){
+
+const StoryBox=()=>{
     const settings={
         dots:false,
         infinite:false,
         speed:500,
-        slidesToShow:4,
-        slidesToScroll:4
+        slidesToShow:8,
+        slidesToScroll:2
     };
     return (
         <Wrapper>

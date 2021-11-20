@@ -9,7 +9,8 @@ const Background = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+
   margin: 0;
   padding: 0;
   background: #fafafa;
@@ -22,6 +23,7 @@ const Wrapper1 = styled.div`
   display: flex;
   flex-direction: row;
   width: 935px;
+  height: 100%;
   padding-top: 54px;
   margin-top: 30px;
 `
