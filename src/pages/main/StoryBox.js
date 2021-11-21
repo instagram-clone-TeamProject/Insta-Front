@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import StoryList from "./StoryList";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import {AiFillLeftCircle,AiFillRightCircle} from 'react-icons/ai';
 
 const Wrapper=styled.div`
@@ -16,7 +16,7 @@ const Wrapper=styled.div`
     padding-bottom:16px;
     margin-bottom:24px;
     border:1px solid #DBDBDB;
-    overflow: hidden;
+    overflow:visible;
 `;
 
 
@@ -42,11 +42,13 @@ const StoryBox=()=>{
         infinite:false,
         speed:500,
         slidesToShow:8,
-        slidesToScroll:2
+        slidesToScroll:4,
+        arrows:true
     };
     return (
-        <Wrapper>
 
+            <Slider {...settings}>
+                
             {stories.map(story => (
                 <StoryList
                     id={story.id}
@@ -54,8 +56,8 @@ const StoryBox=()=>{
                     special={story.special}
                 />
             ))}
+            </Slider>
 
-        </Wrapper>
     )
 }
 
