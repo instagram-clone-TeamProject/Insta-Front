@@ -1,10 +1,10 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import profile_image from '../../assets/profile_image.jpeg';
 import feed_image from '../../assets/feed_image.png';
 import {FiMoreHorizontal} from 'react-icons/fi';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
-import { FaRegHeart,FaRegBookmark } from 'react-icons/fa';
+import { FaHeart, FaRegHeart,FaRegBookmark } from 'react-icons/fa';
 import {FiMessageCircle} from 'react-icons/fi';
 import {MdTagFaces} from 'react-icons/md';
 
@@ -133,6 +133,13 @@ const InputConsol = styled.input`
 
 
 function FeedList({id,user,text}){
+    const [liked,setLiked]=useState(false);
+    const clickLike=()=>{
+        liked?
+        setLiked(false)
+        :setLiked(true)
+    }
+
     return(
         <Wrapper>
             <Wrapper1>
@@ -142,11 +149,15 @@ function FeedList({id,user,text}){
                 </Wrapper2>
                 <FiMoreHorizontal size="18px" style={{margin:"20px"}}/>
             </Wrapper1>
-            <img src={feed_image} width="614px"/>
+            <img src={feed_image} width="614px" onDoubleClick={clickLike} />
             <Wrapper3>
                 <IconBox>
-                    <FaRegHeart size="22px"/>
-                    <FiMessageCircle size="24px"/>
+                    {liked?
+                    <FaHeart size="22px" color="red" onClick={clickLike} />
+                    :<FaRegHeart size="22px" onClick={clickLike} />
+                }
+
+                    <FiMessageCircle size="24px" />
                     <IoPaperPlaneOutline size="24px"/>
                 </IconBox>
                 <FaRegBookmark size="22px"/>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import FeedList from "./FeedList";
 
@@ -17,6 +18,24 @@ const feeds=[
 ]
 
 function FeedBox(){
+    /*
+    const [feeds, setFeeds] = useState([]);
+
+    useEffect(()=>{
+    const getFeeds = async () => {
+        try{
+            const response = await axios.get("http://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/postList");
+            setFeeds(response.data);
+        }
+        catch(e){
+          console.log("getFeeds error");
+        }
+      }
+      getFeeds();
+    },[]);
+    */
+
+
     return (
         <Wrapper>
             {feeds.map(feed => (
