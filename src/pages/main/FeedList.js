@@ -64,19 +64,6 @@ const IconBox=styled.div`
     background-color: white;
 `
 
-const LikeBox=styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items:center;
-    width:582px;
-    height: 50px;
-    background-color: white;
-    border: none;
-    padding-left: 16px;
-    padding-right: 16px;
-    background-color: white;
-`
 
 const ContentBox=styled.div`
     display: flex;
@@ -134,12 +121,18 @@ const InputConsol = styled.input`
 
 function FeedList({id,user,text}){
     const [liked,setLiked]=useState(false);
-    const clickLike=()=>{
-        liked?
-        setLiked(false)
-        :setLiked(true)
-    }
+    const [likeNum,setLikeNum]=useState(44);
 
+    const clickLike=()=>(
+        liked?
+        (
+        setLiked(false),
+        setLikeNum(likeNum-1)
+        ):(
+        setLiked(true),
+        setLikeNum(likeNum+1)
+        )
+    )
     return(
         <Wrapper>
             <Wrapper1>
@@ -154,19 +147,31 @@ function FeedList({id,user,text}){
                 <IconBox>
                     {liked?
                     <FaHeart size="22px" color="red" onClick={clickLike} />
-                    :<FaRegHeart size="22px" onClick={clickLike} />
+                    :<FaRegHeart size="22px" onClick={clickLike}                    
+                    onMouseEnter={({target})=>(target.style.color='gray',target.style.cursor='pointer')}
+                    onMouseLeave={({target})=>(target.style.color='black',target.style.cursor='default')}/>
                 }
 
-                    <FiMessageCircle size="24px" />
-                    <IoPaperPlaneOutline size="24px"/>
+                    <FiMessageCircle
+                    size="24px"
+                    onMouseEnter={({target})=>(target.style.color='gray',target.style.cursor='pointer')}
+                    onMouseLeave={({target})=>(target.style.color='black',target.style.cursor='default')}
+                    />
+                    <IoPaperPlaneOutline
+                    size="24px"
+                    onMouseEnter={({target})=>(target.style.color='gray',target.style.cursor='pointer')}
+                    onMouseLeave={({target})=>(target.style.color='black',target.style.cursor='default')}
+                    />
                 </IconBox>
-                <FaRegBookmark size="22px"/>
+                <FaRegBookmark
+                size="22px"
+                onMouseEnter={({target})=>(target.style.color='gray',target.style.cursor='pointer')}
+                onMouseLeave={({target})=>(target.style.color='black',target.style.cursor='default')}
+                />
             </Wrapper3>
-            <LikeBox>
-                <ProfileImage src={profile_image} />
-                <BlackText>user님 외 44명이 좋아합니다.</BlackText>
-            </LikeBox>
+
             <ContentBox>
+                <p style={{fontSize:'13px', color:'black', fontWeight:'bold' }}>좋아요 {likeNum}개</p>
                 <div>
                     <BlackText style={{fontWeight:"bold"}}>{user}&nbsp;</BlackText>
                     <BlackText>{text}</BlackText>

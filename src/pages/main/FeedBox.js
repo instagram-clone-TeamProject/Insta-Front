@@ -18,7 +18,7 @@ const feeds=[
 ]
 
 function FeedBox(){
-    /*
+/*
     const [feeds, setFeeds] = useState([]);
 
     useEffect(()=>{
