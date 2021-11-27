@@ -36,10 +36,7 @@ function FriendList({ nickname, contents, time }) {
     <Wrapper>
       <ProfileImage src={Profile} />
       <ColumnWrapper>
-        <p style={{ fontSize: '14px', height: '0px', marginBottom: '10px' }}>
-          {' '}
-          {nickname}
-        </p>
+        <p style={{ fontSize: '14px', height: '10px' }}> {nickname}</p>
         <p style={{ fontSize: '13px', height: '10px', color: 'gray' }}>
           {' '}
           {contents} ·{time}
