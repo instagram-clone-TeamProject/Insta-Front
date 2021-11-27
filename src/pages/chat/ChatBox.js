@@ -7,6 +7,8 @@ import SendChat from './SendChat'
 import { AlwaysScrollSection } from '../../components/AlwaysScrollSection'
 import { RiEmotionHappyLine } from 'react-icons/ri'
 import { FaRegHeart } from 'react-icons/fa'
+import { useEffect, useRef, useCallback, useState } from 'react'
+import { useSelector } from 'react-redux'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -59,8 +61,43 @@ const InputBox = styled.div`
   display: flex;
   flex-direction: row;
 `
+const Input = styled.input`
+  height: 35px;
+  width: 370px;
+  border: 1px solid white;
+  outline: none;
+`
+const AlwaysScrollWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+`
 
 function ChatBox() {
+  const scrollRef = useRef()
+  const [sendState, setSendState] = useState({
+    status: 'idle',
+    member: '',
+  })
+
+  const scrollToBottom = useCallback(() => {
+    // 스크롤 내리기
+    scrollRef?.current?.scrollTo(0, 10000)
+  }, [])
+
+  const onSendText = async evt => {
+    //news검색
+    setSendState({
+      status: 'resolved',
+      member: evt.target.value,
+    })
+    console.log(sendState.member)
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [])
+
   return (
     <Wrapper>
       <NicknameBox>
@@ -73,7 +110,7 @@ function ChatBox() {
         />
       </NicknameBox>
 
-      <AlwaysScrollSection>
+      <AlwaysScrollWrapper ref={scrollRef}>
         <ChatList
           date="2021년 10월 22일 오후 7:18"
           contents="엥 핳거야???????????????"
@@ -99,9 +136,9 @@ function ChatBox() {
           contents="ㅁㅊㅋㅋㅋㅋㅋㅋㅋㅋㅋ방밖으로 안나갈라고그러는거여???ㅋㅋㅋㅋㅋㅋ개꿀이다"
         />
         <ChatList contents="ㅋㅋㅋㅋㅋㅋㅌㅌㅋㅋㅋㅋㅋㅋㅋㅋ행복,,,," />
-      </AlwaysScrollSection>
+      </AlwaysScrollWrapper>
 
-      <InputWrapper>
+      <ChatWrapper>
         <InputBox>
           <RiEmotionHappyLine
             style={{
@@ -110,15 +147,8 @@ function ChatBox() {
               marginLeft: '10px',
             }}
           />
-          <input
-            style={{
-              height: '35px',
-              width: '370px',
-              border: '1px solid white',
-            }}
-            placeholder="메세지입력..."
-          />
-          <IoImageOutline
+          <Input placeholder="메세지입력..." onChange={onSendText} />
+          <IoIosInformationCircleOutline
             style={{
               height: '40px',
               fontSize: '30px',
@@ -133,7 +163,7 @@ function ChatBox() {
             }}
           />
         </InputBox>
-      </InputWrapper>
+      </ChatWrapper>
     </Wrapper>
   )
 }
