@@ -130,7 +130,7 @@ function ChatBox() {
         <ChatList contents="ㅋㅋㅋㅋㅋㅋㅌㅌㅋㅋㅋㅋㅋㅋㅋㅋ행복,,,," />
       </AlwaysScrollWrapper>
 
-      <InputWrapper>
+      <ChatWrapper>
         <InputBox>
           <RiEmotionHappyLine
             style={{
@@ -140,7 +140,7 @@ function ChatBox() {
             }}
           />
           <Input placeholder="메세지입력..." onChange={onSendText} />
-          <IoImageOutline
+          <IoIosInformationCircleOutline
             style={{
               height: '40px',
               fontSize: '30px',
@@ -155,7 +155,7 @@ function ChatBox() {
             }}
           />
         </InputBox>
-      </InputWrapper>
+      </ChatWrapper>
     </Wrapper>
   )
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import instagram_logo from '../../assets/instagram_logo.png'
-import profile_image from '../../assets/profile_image.jpeg'
+import profile_image from '../../assets/profile.jpg'
 import UploadPage from '../../pages/upload/UploadPage'
 import { BiSearch } from 'react-icons/bi'
 import { BsHouseDoorFill, BsHouseDoor, BsPlusSquare } from 'react-icons/bs'
