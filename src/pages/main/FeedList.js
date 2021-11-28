@@ -1,7 +1,7 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import styled from 'styled-components';
-import profile_image from '../../assets/profile_image.jpeg';
-import feed_image from '../../assets/feed_image.png';
+import axios from 'axios';
+
 import {FiMoreHorizontal} from 'react-icons/fi';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { FaHeart, FaRegHeart,FaRegBookmark } from 'react-icons/fa';
@@ -119,11 +119,29 @@ const InputConsol = styled.input`
 `
 
 
-function FeedList({id,user,text}){
+function FeedList({id,user,profile,text,file}){
     const [liked,setLiked]=useState(false);
-    const [likeNum,setLikeNum]=useState(44);
+    const [likeNum,setLikeNum]=useState(0);
+    const [likeList,setLikeList]=useState([]);
+
+    useEffect(()=>{
+        const getLike = async () => {
+            try{
+                const response = await axios.get(`http://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/${id}/likeList`);
+                setLikeList(response.data);
+                setLikeNum(likeList.length);
+            }
+            catch(e){
+              console.log("getLike error");
+            }
+          }
+          getLike();
+          
+
+        },[]);
 
     const clickLike=()=>(
+
         liked?
         (
         setLiked(false),
@@ -137,17 +155,18 @@ function FeedList({id,user,text}){
         <Wrapper>
             <Wrapper1>
                 <Wrapper2>
-                    <ProfileImage src={profile_image} />
+                    <ProfileImage src={profile} />
                     <p style={{fontSize:'14px', fontWeight:'bold'}}>{user}</p>
                 </Wrapper2>
                 <FiMoreHorizontal size="18px" style={{margin:"20px"}}/>
             </Wrapper1>
-            <img src={feed_image} width="614px" onDoubleClick={clickLike} />
+            <img src={file} width="614px" onDoubleClick={clickLike} />
             <Wrapper3>
                 <IconBox>
                     {liked?
                     <FaHeart size="22px" color="red" onClick={clickLike} />
-                    :<FaRegHeart size="22px" onClick={clickLike}                    
+                    :<FaRegHeart size="22px" onClick={clickLike}
+                    onM                    
                     onMouseEnter={({target})=>(target.style.color='gray',target.style.cursor='pointer')}
                     onMouseLeave={({target})=>(target.style.color='black',target.style.cursor='default')}/>
                 }

@@ -9,16 +9,8 @@ const Wrapper=styled.div`
     border:none;
 `;
 
-const feeds=[
-    {id:1,user:'user1',text:'게시글 1'},
-    {id:2,user:'user2',text:'게시글 2'},
-    {id:3,user:'user3',text:'게시글 3'},
-    {id:4,user:'user4',text:'게시글 4'},
-    {id:5,user:'user5',text:'게시글 5'}
-]
-
 function FeedBox(){
-/*
+
     const [feeds, setFeeds] = useState([]);
 
     useEffect(()=>{
@@ -32,17 +24,20 @@ function FeedBox(){
         }
       }
       getFeeds();
+      console.log(feeds);
     },[]);
-    */
+    
 
 
     return (
         <Wrapper>
             {feeds.map(feed => (
                 <FeedList
-                    id={feed.id}
-                    user={feed.user}
-                    text={feed.text}
+                    id={feed.postNo}
+                    user={feed.userInfo.userId}
+                    profile={feed.userInfo.originalFileName}
+                    text={feed.content}
+                    file={feed.filePath}
                 />
             ))}
         </Wrapper>
