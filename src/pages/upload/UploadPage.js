@@ -6,6 +6,7 @@ import { Modal, Button, Upload, message } from 'antd'
 import React, { useState, useRef, useEffect } from 'react'
 import { BsHouseDoorFill, BsHouseDoor, BsPlusSquare } from 'react-icons/bs'
 import VideoImage from './video.PNG'
+import Profile from "../../assets/profile.jpg"
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,6 +32,47 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `
 
+const ImageWrapper=styled.div`
+width:500px;
+height:100%;
+background: url(${props => props.src});
+background-color: black;
+background-size: contain;
+background-repeat: no-repeat;
+display: flex;
+background-position: center;
+`
+
+const PictureWrapper=styled.div`
+display:flex;
+flex-direction: row;
+width:100%;
+height:550px;
+`
+
+const TextWrapper=styled.div`
+display: flex;
+flex-direction: column;
+
+`
+const ProfileImage = styled.image`
+  margin-top: 15px;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  margin-right: 10px;
+  background: url(${props => props.src});
+  background-size: 25px;
+  margin-left: 20px;
+`
+const ProfileWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+`
+
 function UploadPage() {
   const dispatch = useDispatch()
   const { Dragger } = Upload
@@ -39,7 +81,7 @@ function UploadPage() {
     status: 'idle',
     member: {
       image: '',
-      upload: false,
+      upload: true,
     },
   })
   const onPreview = async file => {
@@ -52,11 +94,14 @@ function UploadPage() {
         reader.onload = () => resolve(reader.result)
       })
     }
-    const image = new Image()
-    image.src = src
-    const imgWindow = window.open(src)
-    imgWindow.document.write(image.outerHTML)
-    console.log(image.src)
+    setUploadState({
+      status: 'resolved',
+      member: {
+        image: src,
+        upload: false,
+      },
+    })
+    console.log(src)
   }
 
   const showModal = () => {
@@ -76,19 +121,16 @@ function UploadPage() {
       if (status !== 'uploading') {
         console.log(info.file, info.fileList)
         console.log(info.file.url)
-        setUploadState({
-          status: 'resolved',
-          member: {
-            image: info.file.url,
-            upload: true,
-          },
-        })
+        
       }
       if (status === 'done') {
         console.log(`${info.file.name} file uploaded successfully.`)
         console.log(info.file)
       } else if (status === 'error') {
         console.log(`${info.file.name} file upload failed.`)
+        console.log(info?.file, info.fileList)
+        console.log(info)
+        onPreview(info.file)
       }
     },
     onDrop(e) {
@@ -122,12 +164,15 @@ function UploadPage() {
         onOk={handleOk}
         onCancel={handleCancle}
         footer={null}
-        width={680}
-        style={{ borderRadius: '10%' }}
+        width={uploadState?.member?.upload?680:900}
+        style={{ borderRadius: '10%'}}
         centered="true">
-        <Dragger
+          {uploadState?.member?.upload? 
+          <>
+          <Dragger
           {...props}
-          onPreview={onPreview}
+          onDownload={onPreview}
+          showUploadList={true}
           style={{ backgroundColor: 'white', border: '1px solid white' }}>
           <CardWrapper>
             <img src={VideoImage} style={{ marginBottom: '5px' }} />
@@ -151,7 +196,19 @@ function UploadPage() {
               컴퓨터에서 선택
             </Button>
           </Upload>
-        </ButtonWrapper>
+        </ButtonWrapper> </>:
+        <PictureWrapper>
+          <ImageWrapper src={uploadState?.member?.image} />
+          <TextWrapper>
+          <ProfileWrapper>
+          <ProfileImage src={Profile} />
+          <p style={{ marginTop: '17px' }}>as_dkjf </p>
+          <Button style={{marginLeft:'180px',fontSize:'13px',height:'30px',border:'1px solid white',marginTop:'10px'}}>공유하기</Button>
+        </ProfileWrapper>
+          </TextWrapper>
+        </PictureWrapper>
+         }
+        
       </Modal>
     </Wrapper>
   )

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import instagram_logo from '../../assets/instagram_logo.png'
 import profile_image from '../../assets/profile_image.jpeg'
-
+import UploadPage from '../../pages/upload/UploadPage'
 import { BiSearch } from 'react-icons/bi'
 import { BsHouseDoorFill, BsHouseDoor,BsPlusSquare } from 'react-icons/bs'
 import { IoPaperPlaneOutline, IoPaperPlane } from 'react-icons/io5'
@@ -104,7 +104,7 @@ function Header({ bool }) {
             <IconBox>
               <BsHouseDoorFill size="23px"/>
               <IoPaperPlaneOutline onClick={onChatClick} size="23px" />
-              <BsPlusSquare size="22px" />
+              <UploadPage />
               <AiOutlineCompass size="24px" />
               <FaRegHeart size="22px" />
               <Profile>
@@ -115,7 +115,7 @@ function Header({ bool }) {
             <IconBox>
               <BsHouseDoor onClick={onHomeClick} size="23px" />
               <IoPaperPlane size="23px" />
-              <BsPlusSquare size="22px" />
+              <UploadPage />
               <AiOutlineCompass size="24px" />
               <FaRegHeart size="22px" />
               <Profile>

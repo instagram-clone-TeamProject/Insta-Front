@@ -25,7 +25,7 @@ const ChatWrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 900px;
-  height: 700px;
+  height: 600px;
   background-color: white;
   margin-top: 80px;
 `
