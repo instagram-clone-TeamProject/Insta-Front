@@ -79,6 +79,11 @@ function ChatBox() {
     status: 'idle',
     member: '',
   })
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [sendMsg, setSendMsg] = useState(false);
+  const [items, setItems] = useState([]);
+  const webSocketUrl = `ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/ws/chat`;
+  let ws = useRef(null);
 
   const scrollToBottom = useCallback(() => {
     // 스크롤 내리기
@@ -97,6 +102,63 @@ function ChatBox() {
   useEffect(() => {
     scrollToBottom()
   }, [])
+
+  useEffect(() => {
+    if (!ws.current) {
+      ws.current = new WebSocket(webSocketUrl);
+      ws.current.onopen = () => {
+        console.log("connected to " + webSocketUrl);
+        setSocketConnected(true);
+      };
+      ws.current.onclose = (error) => {
+        console.log("disconnect from " + webSocketUrl);
+        console.log(error);
+      };
+      ws.current.onerror = (error) => {
+        console.log("connection error " + webSocketUrl);
+        console.log(error);
+      };
+      ws.current.onmessage = (evt) => {
+        const data = JSON.parse(evt.data);
+        console.log(data);
+        setItems((prevItems) => [...prevItems, data]);
+      };
+    }
+
+    return () => {
+      console.log("clean up");
+      ws.current.close();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (socketConnected) {
+      ws.current.send(
+        JSON.stringify({
+          type:"TALK",
+          roomNo:"dcd3de08-a001-45f1-ba1b-779c2641eb5c",
+          sender:"yoonseo",
+          content:"hihi"
+        })
+      );
+      console.log('send')
+      setSendMsg(true);
+    }
+  }, [socketConnected]);
+
+  useEffect(() => {
+    if (sendMsg) {
+      ws.current.onmessage = (evt) => {
+        const data = JSON.parse(evt.data);
+        console.log(data);
+        setItems((prevItems) => [...prevItems, data]);
+      };
+      console.log('message')
+      console.log(items)
+    }
+  }, [sendMsg]);
+
+ 
 
   return (
     <Wrapper>
