@@ -7,6 +7,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { BsHouseDoorFill, BsHouseDoor, BsPlusSquare } from 'react-icons/bs'
 import VideoImage from './video.PNG'
 import Profile from "../../assets/profile.jpg"
+import Photo from './photo.png'
 
 const Wrapper = styled.div`
   display: flex;
@@ -71,6 +72,19 @@ const ProfileWrapper = styled.div`
   justify-content: center;
   font-size: 14px;
   font-weight: bold;
+`
+
+const InputWrapper=styled.textarea`
+width:350px;
+height:200px ;
+margin-left: 20px;
+text-align: start;
+display: flex;
+justify-content: flex-start;
+border: none;
+outline:none;
+background-color: white;
+
 `
 
 function UploadPage() {
@@ -196,7 +210,8 @@ function UploadPage() {
               컴퓨터에서 선택
             </Button>
           </Upload>
-        </ButtonWrapper> </>:
+        </ButtonWrapper> </>
+        :
         <PictureWrapper>
           <ImageWrapper src={uploadState?.member?.image} />
           <TextWrapper>
@@ -205,6 +220,8 @@ function UploadPage() {
           <p style={{ marginTop: '17px' }}>as_dkjf </p>
           <Button style={{marginLeft:'180px',fontSize:'13px',height:'30px',border:'1px solid white',marginTop:'10px'}}>공유하기</Button>
         </ProfileWrapper>
+        <InputWrapper placeholder='문구 입력...' />
+
           </TextWrapper>
         </PictureWrapper>
          }

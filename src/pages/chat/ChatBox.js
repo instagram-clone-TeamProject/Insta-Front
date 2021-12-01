@@ -9,6 +9,8 @@ import { RiEmotionHappyLine } from 'react-icons/ri'
 import { FaRegHeart } from 'react-icons/fa'
 import { useEffect, useRef, useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
+import io from 'socket.io-client';
+import axios from 'axios'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -84,13 +86,16 @@ function ChatBox() {
   const [items, setItems] = useState([]);
   const webSocketUrl = `ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/ws/chat`;
   let ws = useRef(null);
-  
+ 
   const scrollToBottom = useCallback(() => {
     // 스크롤 내리기
     scrollRef?.current?.scrollTo(0, 10000)
   }, [])
 
   const onSendText = async evt => {
+    axios.get('https://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/chat/rooms').
+    then(response => { console.log(response) });
+    
     setSendState({
       status: 'resolved',
       member: evt.target.value,
@@ -107,13 +112,20 @@ function ChatBox() {
   const onSocketSend=()=>{
     ws.current.send(
       JSON.stringify({
-        type:"TALK",
+        type:"ENTER",
         roomNo:"dcd3de08-a001-45f1-ba1b-779c2641eb5c",
         sender:"yoonseo",
-        content:sendState.member
+        content:''
       })
     );
+    
+    ws.current.onmessage = (evt) => {
+      const data = JSON.parse(evt.data);
+      console.log(data);
+      setItems((prevItems) => [...prevItems, data]);
+    };
     console.log('send')
+    console.log(ws.current)
     setSendMsg(true);
   }
 
@@ -124,6 +136,8 @@ function ChatBox() {
   useEffect(() => {
     if (!ws.current) {
       ws.current = new WebSocket(webSocketUrl);
+      console.log(ws.current)
+      
       ws.current.onopen = () => {
         console.log("connected to " + webSocketUrl);
         setSocketConnected(true);
@@ -152,6 +166,7 @@ function ChatBox() {
 
 
   useEffect(() => {
+    
     if (sendMsg) {
       ws.current.onmessage = (evt) => {
         const data = JSON.parse(evt.data);
