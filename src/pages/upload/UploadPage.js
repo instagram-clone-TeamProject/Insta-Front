@@ -98,7 +98,7 @@ function UploadPage() {
       status: 'resolved',
       member: {
         image: src,
-        upload: false,
+        upload:false,
       },
     })
     console.log(src)

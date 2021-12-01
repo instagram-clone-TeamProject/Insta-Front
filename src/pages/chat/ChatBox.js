@@ -84,19 +84,37 @@ function ChatBox() {
   const [items, setItems] = useState([]);
   const webSocketUrl = `ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/ws/chat`;
   let ws = useRef(null);
-
+  
   const scrollToBottom = useCallback(() => {
     // 스크롤 내리기
     scrollRef?.current?.scrollTo(0, 10000)
   }, [])
 
   const onSendText = async evt => {
-    //news검색
     setSendState({
       status: 'resolved',
       member: evt.target.value,
     })
     console.log(sendState.member)
+  }
+
+  const onKeyPress=(e)=>{
+    if(e.key=='Enter'){
+      onSocketSend();
+    }
+  }
+
+  const onSocketSend=()=>{
+    ws.current.send(
+      JSON.stringify({
+        type:"TALK",
+        roomNo:"dcd3de08-a001-45f1-ba1b-779c2641eb5c",
+        sender:"yoonseo",
+        content:sendState.member
+      })
+    );
+    console.log('send')
+    setSendMsg(true);
   }
 
   useEffect(() => {
@@ -131,20 +149,7 @@ function ChatBox() {
     };
   }, []);
 
-  useEffect(() => {
-    if (socketConnected) {
-      ws.current.send(
-        JSON.stringify({
-          type:"TALK",
-          roomNo:"dcd3de08-a001-45f1-ba1b-779c2641eb5c",
-          sender:"yoonseo",
-          content:"hihi"
-        })
-      );
-      console.log('send')
-      setSendMsg(true);
-    }
-  }, [socketConnected]);
+
 
   useEffect(() => {
     if (sendMsg) {
@@ -209,7 +214,7 @@ function ChatBox() {
               marginLeft: '10px',
             }}
           />
-          <Input placeholder="메세지입력..." onChange={onSendText} />
+          <Input placeholder="메세지입력..." onChange={onSendText} onKeyPress={onKeyPress}/>
           <IoIosInformationCircleOutline
             style={{
               height: '40px',
