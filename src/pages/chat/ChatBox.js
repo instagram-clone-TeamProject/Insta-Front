@@ -11,6 +11,9 @@ import { useEffect, useRef, useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import io from 'socket.io-client';
 import axios from 'axios'
+import SockJS from 'sockjs-client'
+import Stomp from 'stompjs'
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -81,11 +84,23 @@ function ChatBox() {
     status: 'idle',
     member: '',
   })
+  var sock = new SockJS("http://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/ws-stomp");
+  var ws = Stomp.over(sock);
+
+useEffect(()=>{
+  console.log('try connection')
+  ws.connect({}, function(frame) {
+    console.log('Connected: ' + frame)
+    ws?.send("ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/pub/chat/message", 
+    JSON.stringify({type:'ENTER', roomNo:'6fb22769-dc50-4c17-a221-5172b90134c2', sender:'yoonseo' ,content:''}));
+  });
+})
+  
   const [socketConnected, setSocketConnected] = useState(false);
   const [sendMsg, setSendMsg] = useState(false);
   const [items, setItems] = useState([]);
-  const webSocketUrl = `ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/ws/chat`;
-  let ws = useRef(null);
+  const webSocketUrl = `ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com`;
+
  
   const scrollToBottom = useCallback(() => {
     // 스크롤 내리기
@@ -93,9 +108,6 @@ function ChatBox() {
   }, [])
 
   const onSendText = async evt => {
-    axios.get('https://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/chat/rooms').
-    then(response => { console.log(response) });
-    
     setSendState({
       status: 'resolved',
       member: evt.target.value,
@@ -110,22 +122,18 @@ function ChatBox() {
   }
 
   const onSocketSend=()=>{
-    ws.current.send(
-      JSON.stringify({
-        type:"ENTER",
-        roomNo:"dcd3de08-a001-45f1-ba1b-779c2641eb5c",
-        sender:"yoonseo",
-        content:''
-      })
+    
+    ws.send("ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/pub/chat/message", 
+    JSON.stringify({type:'TALK', roomNo:'6fb22769-dc50-4c17-a221-5172b90134c2', sender:'yoonseo' ,content:sendState.member}),
     );
     
-    ws.current.onmessage = (evt) => {
-      const data = JSON.parse(evt.data);
-      console.log(data);
-      setItems((prevItems) => [...prevItems, data]);
-    };
+    ws.subscribe("ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/sub/chat/room/6fb22769-dc50-4c17-a221-5172b90134c2",
+    function(message) {
+      var recv = JSON.parse(message.body);
+      console.log(recv);
+  });
     console.log('send')
-    console.log(ws.current)
+    console.log(ws)
     setSendMsg(true);
   }
 
@@ -133,52 +141,8 @@ function ChatBox() {
     scrollToBottom()
   }, [])
 
-  useEffect(() => {
-    if (!ws.current) {
-      ws.current = new WebSocket(webSocketUrl);
-      console.log(ws.current)
-      
-      ws.current.onopen = () => {
-        console.log("connected to " + webSocketUrl);
-        setSocketConnected(true);
-      };
-      ws.current.onclose = (error) => {
-        console.log("disconnect from " + webSocketUrl);
-        console.log(error);
-      };
-      ws.current.onerror = (error) => {
-        console.log("connection error " + webSocketUrl);
-        console.log(error);
-      };
-      ws.current.onmessage = (evt) => {
-        const data = JSON.parse(evt.data);
-        console.log(data);
-        setItems((prevItems) => [...prevItems, data]);
-      };
-    }
+  
 
-    return () => {
-      console.log("clean up");
-      ws.current.close();
-    };
-  }, []);
-
-
-
-  useEffect(() => {
-    
-    if (sendMsg) {
-      ws.current.onmessage = (evt) => {
-        const data = JSON.parse(evt.data);
-        console.log(data);
-        setItems((prevItems) => [...prevItems, data]);
-      };
-      console.log('message')
-      console.log(items)
-    }
-  }, [sendMsg]);
-
- 
 
   return (
     <Wrapper>
