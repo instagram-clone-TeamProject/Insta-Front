@@ -12,7 +12,7 @@ function App() {
         <Route exact path="/upload" element={<UploadPage />} />
       </Routes>
     </Router>
-  )
+  )  
 }
 
 export default App

@@ -3,6 +3,7 @@ import { IoIosArrowDown, IoIosCreate } from 'react-icons/io'
 import { HiPencilAlt } from 'react-icons/hi'
 import FriendList from './FreindList'
 import { AlwaysScrollSection } from '../../components/AlwaysScrollSection'
+import { useEffect, useCallback, useState, useRef } from 'react'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -28,6 +29,25 @@ const FixedPosition = styled.div`
 `
 
 function FreindBox() {
+  const scrollRef = useRef()
+  const [sendState, setSendState] = useState({
+    status: 'idle',
+    member: '',
+  })
+
+  const scrollToBottom = useCallback(() => {
+    // 스크롤 내리기
+    scrollRef?.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest',
+    })
+  }, [])
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [])
+
   return (
     <Wrapper>
       <NicknameBox>
@@ -39,7 +59,7 @@ function FreindBox() {
           <HiPencilAlt style={{ fontSize: '20px', marginLeft: '90px' }} />
         </FixedPosition>
       </NicknameBox>
-      <AlwaysScrollSection>
+      <AlwaysScrollSection ref={scrollRef}>
         {FrindData.map(friend => (
           <FriendList
             nickname={friend.nickname}
