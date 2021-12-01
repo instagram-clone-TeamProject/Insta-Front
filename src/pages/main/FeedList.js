@@ -135,11 +135,42 @@ function FeedList({id,user,profile,text,file}){
               console.log("getLike error");
             }
           }
+
           getLike();
-          if (likeList.length!=0){
-            console.log(likeList);
-          }
+          if (likeList.length!==0){
+              console.log('likelist',likeList);
+              const finduser=likeList.find(lk => lk.userId===String({user}.user));
+              if (finduser!=undefined){
+                  setLiked(true);
+                  console.log('set liked~');
+              }
+
+            }
         },[]);
+
+        useEffect(()=>{
+            const getLike = async () => {
+                try{
+                    const response = await axios.get(`http://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/${id}/likeList`);
+                    setLikeList(response.data);
+                    setLikeNum(likeList.length);
+                }
+                catch(e){
+                  console.log("getLike error");
+                }
+              }
+    
+              getLike();
+              if (likeList.length!==0){
+                  console.log('likelist',likeList);
+                  const finduser=likeList.find(lk => lk.userId===String({user}.user));
+                  if (finduser!=undefined){
+                      setLiked(true);
+                      console.log('set liked~');
+                  }
+    
+                }
+            },[liked]);
     
     const patchLike = async () => {
         try{

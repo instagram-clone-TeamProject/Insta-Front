@@ -5,9 +5,13 @@ import { useDispatch } from 'react-redux'
 import { Modal, Button, Upload, message } from 'antd'
 import React, { useState, useRef, useEffect } from 'react'
 import { BsHouseDoorFill, BsHouseDoor, BsPlusSquare } from 'react-icons/bs'
+import {MdTagFaces} from 'react-icons/md';
+import {FiMapPin} from 'react-icons/fi';
+import {AiOutlineDown} from 'react-icons/ai';
 import VideoImage from './video.PNG'
 import Profile from "../../assets/profile.jpg"
 import Photo from './photo.png'
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -42,6 +46,8 @@ background-size: contain;
 background-repeat: no-repeat;
 display: flex;
 background-position: center;
+
+
 `
 
 const PictureWrapper=styled.div`
@@ -84,8 +90,58 @@ justify-content: flex-start;
 border: none;
 outline:none;
 background-color: white;
-
 `
+
+const TextCountBox=styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height:45px;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin:0;
+  border-bottom: 1px solid lightgray;
+`;
+
+const PlaceBox=styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height:45px;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin:0;
+  border-bottom: 1px solid lightgray;
+`;
+
+const AccessBox=styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height:45px;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-bottom: 1px solid lightgray;
+`;
+
+
+const SettingBox=styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height:45px;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-bottom: 1px solid lightgray;
+`;
 
 function UploadPage() {
   const dispatch = useDispatch()
@@ -98,6 +154,7 @@ function UploadPage() {
       upload: true,
     },
   })
+  const [textcontent,setTextcontent]=useState('');
   const onPreview = async file => {
     let src = file.url
     console.log(file)
@@ -169,6 +226,12 @@ function UploadPage() {
     },
   }
 
+  const searchChange=(event)=>{
+    setTextcontent(event.target.value);
+    console.log(textcontent);
+}
+
+
   return (
     <Wrapper>
       <BsPlusSquare size="22px" onClick={showModal} />
@@ -220,8 +283,23 @@ function UploadPage() {
           <p style={{ marginTop: '17px' }}>as_dkjf </p>
           <Button style={{marginLeft:'180px',fontSize:'13px',height:'30px',border:'1px solid white',marginTop:'10px'}}>공유하기</Button>
         </ProfileWrapper>
-        <InputWrapper placeholder='문구 입력...' />
-
+        <InputWrapper placeholder='문구 입력...' onChange={(e)=>searchChange(e)}/>
+              <TextCountBox>
+                <MdTagFaces size="28px" color="gray" />
+                <p style={{color:'gray'}}>{textcontent.length}/2,200</p>
+              </TextCountBox>
+              <PlaceBox>
+                <p style={{style:'gray', fontSize:'16px',paddingTop:'16px'}}>위치 추가</p>
+                <FiMapPin size="20px"/>
+              </PlaceBox>
+              <AccessBox>
+                <p style={{style:'black', fontSize:'16px',paddingTop:'16px'}}>접근성</p>
+                <AiOutlineDown size="20px" />
+              </AccessBox>
+              <SettingBox>
+                <p style={{style:'black', fontSize:'16px',paddingTop:'16px'}}>고급 설정</p>
+                <AiOutlineDown size="20px"/>
+              </SettingBox>
           </TextWrapper>
         </PictureWrapper>
          }
