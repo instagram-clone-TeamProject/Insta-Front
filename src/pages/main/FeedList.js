@@ -136,17 +136,29 @@ function FeedList({id,user,profile,text,file}){
             }
           }
           getLike();
-          
-
+          if (likeList.length!=0){
+            console.log(likeList);
+          }
         },[]);
+    
+    const patchLike = async () => {
+        try{
+            const response = await axios.patch(`http://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/${id}/1/like`);
+            console.log(response);
+        }
+        catch(e){
+            console.log("patchLike error");
+        }
 
+    }
     const clickLike=()=>(
-
         liked?
         (
+        patchLike(),
         setLiked(false),
         setLikeNum(likeNum-1)
         ):(
+        patchLike(),
         setLiked(true),
         setLikeNum(likeNum+1)
         )
@@ -166,7 +178,6 @@ function FeedList({id,user,profile,text,file}){
                     {liked?
                     <FaHeart size="22px" color="red" onClick={clickLike} />
                     :<FaRegHeart size="22px" onClick={clickLike}
-                    onM                    
                     onMouseEnter={({target})=>(target.style.color='gray',target.style.cursor='pointer')}
                     onMouseLeave={({target})=>(target.style.color='black',target.style.cursor='default')}/>
                 }
