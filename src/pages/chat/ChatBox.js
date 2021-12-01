@@ -94,6 +94,7 @@ useEffect(()=>{
     ws?.send("ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/pub/chat/message", 
     JSON.stringify({type:'ENTER', roomNo:'6fb22769-dc50-4c17-a221-5172b90134c2', sender:'yoonseo' ,content:''}));
   });
+  setSocketConnected(true)
 })
   
   const [socketConnected, setSocketConnected] = useState(false);
