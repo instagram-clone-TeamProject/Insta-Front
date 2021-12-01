@@ -4,7 +4,7 @@ import StoryList from "./StoryList";
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import {AiFillLeftCircle,AiFillRightCircle} from 'react-icons/ai';
+
 
 const Wrapper=styled.div`
     display:flex;

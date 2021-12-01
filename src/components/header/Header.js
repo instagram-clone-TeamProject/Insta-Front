@@ -45,7 +45,7 @@ const InputBox = styled.div`
   background-color: #fafafa;
   border: 1px solid #dbdbdb;
   width: 189px;
-  height: 20px;
+  height: 28px;
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 3px;
@@ -56,9 +56,10 @@ const InputConsol = styled.input`
   background-color: #fafafa;
   border: none;
   outline: none;
-  width: 400px;
+  width: 150px;
+  height:90%;
   ::-webkit-input-placeholder {
-    color: #d5d5d5;
+    color: lightgray;
   }
 `
 
@@ -97,7 +98,7 @@ function Header({ bool }) {
             <img src={instagram_logo} alt="logo" height="45px" />
           </a>
           <InputBox>
-            <BiSearch size="26px" color="#A7AAAD" />
+            <BiSearch size="28px" color="#A7AAAD" />
             <InputConsol placeholder="검색" />
           </InputBox>
           {iconState ? (

@@ -23,9 +23,10 @@ const Wrapper1=styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width:614px;
+    width:100%;
     height:60px;
-    border-bottom:1px solid #EFEEEF;
+    margin: 0;
+    padding:0;
     background-color: white;
 `;
 
@@ -34,7 +35,7 @@ const Wrapper2=styled.div`
     flex-direction: row;
     justify-content: left;
     align-items: center;
-    width:614px;
+    width:594px;
     height:50px;
     padding-left: 16px;
     padding-right: 4px;
@@ -46,7 +47,7 @@ const Wrapper3=styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width:582px;
+    width:100%;
     height:50px;
     border: none;
     padding-left: 16px;
@@ -64,12 +65,11 @@ const IconBox=styled.div`
     background-color: white;
 `
 
-
 const ContentBox=styled.div`
     display: flex;
     flex-direction: column;
     justify-content: left;
-    width:582px;
+    width:100%;
     min-height: 50px;
     background-color: white;
     border: none;
@@ -83,7 +83,7 @@ const CommentBox=styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width:582px;
+    width:100%;
     height:50px;
     border-top:1px solid #DBDBDB;
     padding-left: 16px;
@@ -94,8 +94,8 @@ const CommentBox=styled.div`
 const ProfileImage = styled.image`
   border:1px solid #EFEEEF;
   border-radius: 50%;
-  height: 30px;
-  width: 30px;
+  height: 35px;
+  width: 35px;
   margin-right: 14px;
   background: url(${props => props.src});
   background-size: 30px;
@@ -168,11 +168,11 @@ function FeedList({id,user,profile,text,file}){
             <Wrapper1>
                 <Wrapper2>
                     <ProfileImage src={profile} />
-                    <p style={{fontSize:'14px', fontWeight:'bold'}}>{user}</p>
+                    <p style={{fontSize:'14px', fontWeight:'bold', margin:'0'}}>{user}</p>
                 </Wrapper2>
                 <FiMoreHorizontal size="18px" style={{margin:"20px"}}/>
             </Wrapper1>
-            <img src={file} width="614px" onDoubleClick={clickLike} />
+            <img src={file} width="100%" onDoubleClick={clickLike} />
             <Wrapper3>
                 <IconBox>
                     {liked?
@@ -213,7 +213,7 @@ function FeedList({id,user,profile,text,file}){
             <CommentBox>
                 <MdTagFaces size="26px" />
                 <InputConsol placeholder='댓글 달기...' />
-                <p style={{fontSize:'14px', color:'skyblue'}}>게시</p>
+                <p style={{fontSize:'14px', color:'skyblue', margin:'0'}}>게시</p>
             </CommentBox>
         </Wrapper>
     )
