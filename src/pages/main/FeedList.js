@@ -125,27 +125,43 @@ function FeedList({id,user,profile,text,file}){
     const [likeList,setLikeList]=useState([]);
 
     useEffect(()=>{
-        const getLike = async () => {
+        const getLikeList = async () => {
             try{
                 const response = await axios.get(`http://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/${id}/likeList`);
                 setLikeList(response.data);
-                setLikeNum(likeList.length);
             }
             catch(e){
-              console.log("getLike error");
+              console.log("getLikeList error");
             }
           }
 
-          getLike();
-          if (likeList.length!==0){
-              console.log('likelist',likeList);
-              const finduser=likeList.find(lk => lk.userId===String({user}.user));
-              if (finduser!=undefined){
-                  setLiked(true);
-                  console.log('set liked~');
-              }
-
+          const getLikeNum = async () => {
+            try{
+                const response = await axios.get(`http://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/${id}/likeListCount`);
+                console.log(response.data);
+                setLikeNum(response.data);
             }
+            catch(e){
+              console.log("getUserNum error");
+            }
+          }
+
+          const getUserLiked = async () => {
+            try{
+                const response = await axios.get(`http://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/${id}/1/check`);
+                console.log(response.data);
+                setLiked(response.data);
+                console.log(setLiked)
+            }
+            catch(e){
+                console.log(e);
+              console.log("getUserLiked error");
+            }
+          }
+
+          getLikeList();
+          getLikeNum();
+          getUserLiked();
         },[]);
     
     const patchLike = async () => {
