@@ -11,6 +11,7 @@ import {AiOutlineDown} from 'react-icons/ai';
 import VideoImage from './video.PNG'
 import Profile from "../../assets/profile.jpg"
 import Photo from './photo.png'
+import axios from 'axios'
 
 
 const Wrapper = styled.div`
@@ -226,11 +227,58 @@ function UploadPage() {
     },
   }
 
-  const searchChange=(event)=>{
+  const InputChange=(event)=>{
     setTextcontent(event.target.value);
-    console.log(textcontent);
 }
 
+const postFeeds = async () => {
+  try{
+    const formData=new FormData();
+    formData.append('image',uploadState.member.image);
+    const requestDto={
+      "user":{
+          "userNo":1,
+          "userId":"efub",
+          "fileSize":0,
+          "originalFileName":"null",
+          "filePath":null
+      },
+      "content":textcontent
+  }
+  const userObj={          
+    "userNo":1,
+    "userId":"efub",
+    "fileSize":0,
+    "originalFileName":"null",
+    "filePath":null
+  }
+  console.log(JSON.stringify(userObj));
+
+
+    //formData.append('requestDto',new Blob([JSON.stringify(user)],{type:"application/json"}));
+    formData.append('requestDto',{      
+      "user":{
+      "userNo":1,
+      "userId":"efub",
+      "fileSize":0,
+      "originalFileName":"null",
+      "filePath":null
+  }});
+    formData.append('requestDto',{"content":textcontent});
+    const config={
+      Headers:{
+        'content-type':'multipart/form-data',
+      },
+    }
+    const response = await axios.post('http://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/api/posts'
+    ,formData,config);
+    console.log(response);
+  }
+  catch(e){
+    console.log(e);
+    console.log("postFeeds error");
+  }
+}
 
   return (
     <Wrapper>
@@ -281,9 +329,9 @@ function UploadPage() {
           <ProfileWrapper>
           <ProfileImage src={Profile} />
           <p style={{ marginTop: '17px' }}>as_dkjf </p>
-          <Button style={{marginLeft:'180px',fontSize:'13px',height:'30px',border:'1px solid white',marginTop:'10px'}}>공유하기</Button>
+          <Button style={{marginLeft:'180px',fontSize:'13px',height:'30px',border:'1px solid white',marginTop:'10px'}} onClick={postFeeds}>공유하기</Button>
         </ProfileWrapper>
-        <InputWrapper placeholder='문구 입력...' onChange={(e)=>searchChange(e)}/>
+        <InputWrapper placeholder='문구 입력...' onChange={(e)=>InputChange(e)}/>
               <TextCountBox>
                 <MdTagFaces size="28px" color="gray" />
                 <p style={{color:'gray'}}>{textcontent.length}/2,200</p>

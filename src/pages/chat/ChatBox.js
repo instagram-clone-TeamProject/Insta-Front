@@ -92,7 +92,12 @@ useEffect(()=>{
   ws.connect({}, function(frame) {
     console.log('Connected: ' + frame)
     ws?.send("ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/pub/chat/message", 
-    JSON.stringify({type:'ENTER', roomNo:'6fb22769-dc50-4c17-a221-5172b90134c2', sender:'yoonseo' ,content:''}));
+    JSON.stringify({type:'ENTER', roomNo:'6450d923-090c-4a67-9358-ae3a72d87695', sender:'yoonseo' ,content:''}));
+    ws.subscribe("ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/sub/chat/room/6450d923-090c-4a67-9358-ae3a72d87695",
+    function(message) {
+      var recv = JSON.parse(message.body);
+      console.log(recv);
+  });
   });
   setSocketConnected(true)
 })
@@ -125,10 +130,10 @@ useEffect(()=>{
   const onSocketSend=()=>{
     
     ws.send("ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/pub/chat/message", 
-    JSON.stringify({type:'TALK', roomNo:'6fb22769-dc50-4c17-a221-5172b90134c2', sender:'yoonseo' ,content:sendState.member}),
+    JSON.stringify({type:'TALK', roomNo:'6450d923-090c-4a67-9358-ae3a72d87695', sender:'yoonseo' ,content:sendState.member}),
     );
     
-    ws.subscribe("ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/sub/chat/room/6fb22769-dc50-4c17-a221-5172b90134c2",
+    ws.subscribe("ws://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/sub/chat/room/6450d923-090c-4a67-9358-ae3a72d87695",
     function(message) {
       var recv = JSON.parse(message.body);
       console.log(recv);
