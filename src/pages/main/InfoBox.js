@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import profile_image from '../../assets/profile_image.jpeg'
+import black from '../../assets/black.jpeg'
+import pink from '../../assets/pink.jpeg'
+import blue from '../../assets/blue.jpeg'
+import zzang from '../../assets/zzang.jpeg'
+import suzi from '../../assets/suzi.jpeg'
 import RecoList from "./RecoList";
 
 const Wrapper=styled.div`
@@ -72,11 +77,11 @@ const InfoText=styled.text`
 `;
 
 const recommendations=[
-    {id:1,text:'회원님을 위한 추천'},
-    {id:2,text:'Instagram 신규 가입'},
-    {id:3,text:'user 님 외 1명이 팔로우합니다'},
-    {id:4,text:'회원님을 위한 추천'},
-    {id:5,text:'user님 외 10명이 팔로우합니다'}
+    {id:1,name:'pink',text:'회원님을 위한 추천',photo:pink},
+    {id:2,name:'black',text:'Instagram 신규 가입',photo:black},
+    {id:3,name:'zzang',text:'yellow님 외 1명이 팔로우합니다',photo:zzang},
+    {id:4,name:'suzi',text:'회원님을 위한 추천',photo:suzi},
+    {id:5,name:'blue',text:'efub님 외 10명이 팔로우합니다',photo:blue}
 ]
 
 function InfoBox(){
@@ -100,7 +105,9 @@ function InfoBox(){
                 {recommendations.map(reco => (
                 <RecoList
                     id={reco.id}
+                    name={reco.name}
                     text={reco.text}
+                    photo={reco.photo}
                 />
                 ))}
             </Wrapper2>

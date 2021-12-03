@@ -42,12 +42,13 @@ const BlueText=styled.text`
     font-size: 12px;
 `;
 
-function RecoList({id,text}){
+function RecoList({id,name,text,photo}){
+    console.log(photo);
     return(
         <Wrapper>
-            <ProfileImage src={profile_image} />
+            <ProfileImage src={photo} />
             <TextBox>
-                <BlackText>user {id}</BlackText>
+                <BlackText>{name}</BlackText>
                 <GrayText>{text}</GrayText>
             </TextBox>
             <BlueText>팔로우</BlueText>

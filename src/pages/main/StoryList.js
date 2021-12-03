@@ -31,11 +31,11 @@ const BlackText=styled.text`
 
 
 
-function StoryList({id,read,special}){
+function StoryList({id,read,name,photo}){
     return(
         <Wrapper>
-            <ProfileImage src={profile_image} />
-            <BlackText>user {id}</BlackText>
+            <ProfileImage src={photo} />
+            <BlackText>{name}</BlackText>
         </Wrapper>
     )
 }
