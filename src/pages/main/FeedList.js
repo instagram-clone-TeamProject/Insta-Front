@@ -1,12 +1,15 @@
 import React,{useState,useEffect} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import {HeartOutlined, HeartFilled} from '@ant-design/icons';
+import './style.css'
 
 import {FiMoreHorizontal} from 'react-icons/fi';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { FaHeart, FaRegHeart,FaRegBookmark } from 'react-icons/fa';
 import {FiMessageCircle} from 'react-icons/fi';
 import {MdTagFaces} from 'react-icons/md';
+
 
 const Wrapper=styled.div`
     display:flex;
@@ -107,7 +110,6 @@ const BlackText=styled.text`
     font-size: 13px;
 `;
 
-
 const InputConsol = styled.input`
   background-color: white;
   border: none;
@@ -117,6 +119,7 @@ const InputConsol = styled.input`
     color: gray;
   }
 `
+
 
 
 function FeedList({id,user,profile,text,file}){
@@ -198,12 +201,11 @@ function FeedList({id,user,profile,text,file}){
             <img src={file} width="100%" onDoubleClick={clickLike} />
             <Wrapper3>
                 <IconBox>
-                    {liked?
-                    <FaHeart size="22px" color="red" onClick={clickLike} />
-                    :<FaRegHeart size="22px" onClick={clickLike}
-                    onMouseEnter={({target})=>(target.style.color='gray',target.style.cursor='pointer')}
-                    onMouseLeave={({target})=>(target.style.color='black',target.style.cursor='default')}/>
-                }
+                <div className="icons-list">
+                    {liked ?  
+                    <HeartFilled size="22px" className="button red" onClick={clickLike}/> :
+                    <HeartOutlined size="22px" className="button" onClick={clickLike}/>}
+                </div>
 
                     <FiMessageCircle
                     size="24px"

@@ -235,43 +235,22 @@ const postFeeds = async () => {
   try{
     const formData=new FormData();
     formData.append('image',uploadState.member.image);
-    const requestDto={
-      "user":{
-          "userNo":1,
-          "userId":"efub",
-          "fileSize":0,
-          "originalFileName":"null",
-          "filePath":null
-      },
-      "content":textcontent
-  }
-  const userObj={          
-    "userNo":1,
-    "userId":"efub",
-    "fileSize":0,
-    "originalFileName":"null",
-    "filePath":null
-  }
-  console.log(JSON.stringify(userObj));
+    //formData.append('content', textcontent);
+    console.log(uploadState.member.image);
+    console.log(textcontent);
 
 
-    //formData.append('requestDto',new Blob([JSON.stringify(user)],{type:"application/json"}));
-    formData.append('requestDto',{      
-      "user":{
-      "userNo":1,
-      "userId":"efub",
-      "fileSize":0,
-      "originalFileName":"null",
-      "filePath":null
-  }});
-    formData.append('requestDto',{"content":textcontent});
     const config={
       Headers:{
         'content-type':'multipart/form-data',
       },
     }
-    const response = await axios.post('http://ec2-3-36-132-41.ap-northeast-2.compute.amazonaws.com/api/posts'
-    ,formData,config);
+    const response = await axios.post("http://localhost:8080/api/posts/images",
+    {
+    formData,
+    "content":textcontent
+    }
+    ,config);
     console.log(response);
   }
   catch(e){
