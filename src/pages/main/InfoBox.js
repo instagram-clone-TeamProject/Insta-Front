@@ -92,8 +92,8 @@ function InfoBox(){
                     <img src={profile_image} width="100%" height="100%" style={{objectFit:"cover"}}/>
                 </Profile>
                 <TextBox>
-                    <BlackText>olrearny</BlackText>
-                    <GrayText>정드림</GrayText>
+                    <BlackText>EFUB</BlackText>
+                    <GrayText>이펍</GrayText>
                 </TextBox>
                 <BlueText>전환</BlueText>
             </Wrapper1>

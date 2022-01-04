@@ -10,9 +10,7 @@ const Wrapper=styled.div`
 `;
 
 function FeedBox(){
-
     const [feeds, setFeeds] = useState([]);
-
     useEffect(()=>{
     const getFeeds = async () => {
         try{

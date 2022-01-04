@@ -47,8 +47,6 @@ background-size: contain;
 background-repeat: no-repeat;
 display: flex;
 background-position: center;
-
-
 `
 
 const PictureWrapper=styled.div`
@@ -173,6 +171,7 @@ function UploadPage() {
         upload:false,
       },
     })
+    console.log(file)
     console.log(src)
   }
 
@@ -234,8 +233,8 @@ function UploadPage() {
 const postFeeds = async () => {
   try{
     const formData=new FormData();
-    formData.append('image',uploadState.member.image);
-    //formData.append('content', textcontent);
+    formData.append("image",uploadState.member.image);
+    formData.append("content", textcontent);
     console.log(uploadState.member.image);
     console.log(textcontent);
 
@@ -245,12 +244,9 @@ const postFeeds = async () => {
         'content-type':'multipart/form-data',
       },
     }
-    const response = await axios.post("http://localhost:8080/api/posts/images",
-    {
-    formData,
-    "content":textcontent
-    }
-    ,config);
+
+    const response = await axios.post("http://localhost:8080/api/posts/images"
+    ,formData);
     console.log(response);
   }
   catch(e){
